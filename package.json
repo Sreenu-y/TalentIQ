@@ -1,0 +1,21 @@
+{
+  "name": "talentiq",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/Sreenu-y/TalentIQ#readme",
+  "bugs": {
+    "url": "https://github.com/Sreenu-y/TalentIQ/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sreenu-y/TalentIQ.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "npm run start --prefix backend"
+  }
+}
