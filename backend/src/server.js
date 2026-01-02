@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import dotenv from "dotenv";
 import { ENV } from "./lib/env.js";
+import { connectDB } from "./lib/db.js";
 
 dotenv.config();
 
@@ -26,4 +27,15 @@ if (ENV.NODE_ENV === "production") {
 
 const PORT = ENV.PORT;
 
-app.listen(PORT, () => console.log(`server is running on port ${PORT}`));
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, async () => {
+      console.log(`server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.log("Error starting the server", error);
+  }
+};
+
+startServer();
