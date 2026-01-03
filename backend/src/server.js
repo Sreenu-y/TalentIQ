@@ -3,12 +3,23 @@ import path from "path";
 import dotenv from "dotenv";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
+import cors from "cors";
+import { serve } from "inngest";
+import { inngest } from "./lib/inngest.js";
 
 dotenv.config();
 
 const app = express();
 
 const __dirname = path.resolve();
+
+//middlewares
+app.use(express.json());
+app.use(cors({ origin: ENV.CLIENT_URL, credentials: true }));
+
+//Inngest endpoint
+
+app.use("/api/inngest", serve({ client: inngest }));
 
 app.get("/success", (req, res) => {
   res.status(200).json({ msg: "success from api" });
