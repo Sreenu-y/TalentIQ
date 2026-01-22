@@ -27,7 +27,7 @@ const ActiveSessions = ({ sessions, isLoading, isUserInSession }) => {
           <div className="flex items-center gap-2">
             <div className="size-2 bg-success rounded-full" />
             <span className="text-sm font-medium text-success">
-              {sessions?.length} active
+              {sessions?.length ?? 0} active
             </span>
           </div>
         </div>
