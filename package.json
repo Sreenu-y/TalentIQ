@@ -1,21 +1,29 @@
 {
-  "name": "talentiq",
+  "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/Sreenu-y/TalentIQ#readme",
-  "bugs": {
-    "url": "https://github.com/Sreenu-y/TalentIQ/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Sreenu-y/TalentIQ.git"
-  },
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
-    "build": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend",
-    "start": "npm run start --prefix backend"
+    "dev": "nodemon backend/src/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend",
+    "start": "nodemon backend/src/server.js"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@clerk/express": "^1.7.41",
+    "@stream-io/node-sdk": "^0.7.12",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "inngest": "^3.44.3",
+    "mongoose": "^8.19.1",
+    "stream-chat": "^9.24.0",
+    "talentiq": "file:.."
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }
