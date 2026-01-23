@@ -16,6 +16,7 @@
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/react-query": "^5.90.5",
     "axios": "^1.12.2",
+    "backend": "file:..",
     "canvas-confetti": "^1.9.3",
     "date-fns": "^4.1.0",
     "lucide-react": "^0.562.0",

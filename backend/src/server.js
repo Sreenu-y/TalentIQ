@@ -1,5 +1,10 @@
 import dotenv from "dotenv";
-dotenv.config();
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.resolve(__dirname, "../../backend/.env") });
 
 import express from "express";
 import cors from "cors";
@@ -13,23 +18,15 @@ import sessionRoutes from "./routes/sessionRoutes.js";
 
 const app = express();
 
+const _dirname = path.resolve();
+
 // Middlewares
 app.use(express.json());
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (
-        !origin || // allow server-to-server requests
-        origin.startsWith("http://localhost") ||
-        origin.endsWith(".vercel.app")
-      ) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: ENV.CLIENT_URL,
     credentials: true,
-  })
+  }),
 );
 
 app.use(clerkMiddleware()); //this adds auth field to request obj: req.auth()
@@ -39,13 +36,21 @@ app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat", chatRoutes);
 app.use("/api/sessions", sessionRoutes);
 
-app.get("/", (req, res) => {
-  res.status(200).json({ msg: "Talent-IQ API is running" });
-});
-
 // Health check
 app.get("/health", (req, res) => {
   res.status(200).json({ msg: "Success from API" });
+});
+
+app.get("/success", (req, res) => {
+  res.status(200).json({ msg: "Talent-IQ API is running" });
+});
+
+// Serve frontend static files
+app.use(express.static(path.join(_dirname, "/frontend/dist")));
+
+// Fallback route for SPA
+app.use((req, res) => {
+  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
 });
 
 const startServer = async () => {
